@@ -1,16 +1,20 @@
 {
-    "name": "laravel/forge-cli",
-    "description": "The Laravel Forge CLI.",
-    "keywords": ["laravel", "forge", "cli"],
+    "name": "zhylon/zhylon-cli",
+    "description": "The Zhylon Deployment CLI.",
+    "keywords": ["laravel", "zhylon", "cli"],
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel/forge-cli/issues",
-        "source": "https://github.com/laravel/forge-cli"
+        "issues": "https://github.com/zhylon/zhylon-cli/issues",
+        "source": "https://github.com/zhylon/zhylon-cli"
     },
     "authors": [
         {
-            "name": "Taylor Otwell",
-            "email": "taylor@laravel.com"
+            "name": "TobyMaxham",
+            "email": "git@maxham.de"
+        },
+        {
+            "name": "Norbert Fox",
+            "email": "nfox@zhylon.de"
         }
     ],
     "require": {
@@ -47,6 +51,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "bin": [
-        "builds/forge"
+        "builds/zhylon"
     ]
 }

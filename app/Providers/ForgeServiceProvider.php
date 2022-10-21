@@ -28,7 +28,17 @@ class ForgeServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ForgeRepository::class, function () {
             $config = resolve(ConfigRepository::class);
-            $token = $config->get('token', $_SERVER['FORGE_API_TOKEN'] ?? getenv('FORGE_API_TOKEN') ?: null);
+            $token = $config->get('token', $_SERVER['ZHYLON_API_TOKEN'] ?? getenv('ZHYLON_API_TOKEN') ?: null);
+
+            $guzzle = new \GuzzleHttp\Client([
+                'base_uri' => $_SERVER['ZHYLON_API_ENDPOINT'] ?? getenv('ZHYLON_API_ENDPOINT') ?: 'https://zhylon.de/api/v2/',
+                'http_errors' => false,
+                'headers' => [
+                    'Authorization' => 'Bearer '.$token,
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
 
             $client = new Forge($token);
 

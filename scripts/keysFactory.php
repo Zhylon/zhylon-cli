@@ -6,7 +6,7 @@ use phpseclib3\Crypt\EC;
 
 require file_exists(__DIR__.'/../vendor/autoload.php') ? __DIR__.'/../vendor/autoload.php' : __DIR__.'/../../../autoload.php';
 
-OpenSSH::setComment('forge-cli-generated-key');
+OpenSSH::setComment('zhylon-cli-generated-key');
 $private = EC::createKey('Ed25519');
 
 $public = $private->getPublicKey()->toString('OpenSSH');
