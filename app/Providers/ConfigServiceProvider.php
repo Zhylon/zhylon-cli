@@ -29,7 +29,7 @@ class ConfigServiceProvider extends ServiceProvider
                  ? base_path('tests')
                  : ($_SERVER['HOME'] ?? $_SERVER['USERPROFILE']);
 
-            $path .= '/.laravel-forge/config.json';
+            $path .= '/.zhylon-deployment/config.json';
 
             return new ConfigRepository($path);
         });

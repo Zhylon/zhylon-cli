@@ -2,7 +2,6 @@
 
 namespace App\Commands\Concerns;
 
-use Laravel\Forge\Resources\Server;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
 trait InteractsWithIO
@@ -50,12 +49,40 @@ trait InteractsWithIO
         abort_if($answers->isEmpty(), 1, 'This server does not have any sites.');
 
         if (! is_null($name)) {
+            if (str_starts_with($name, 'h:')) {
+                return optional($answers->where('id', $name)->first())->id ?: $name;
+            } elseif (is_numeric($name) && $answers->isNotEmpty() && is_numeric($answers->first()->id)) {
+                return optional($answers->where('id', $name)->first())->id ?: $name;
+            }
             return optional($answers->where('name', $name)->first())->id ?: $name;
         }
 
-        return $this->choiceStep($question, $answers->mapWithKeys(function ($resource) {
-            return [$resource->id => $resource->name];
-        })->all());
+        $sites = $answers->mapWithKeys(function ($resource, $key) {
+            $name = $resource->name;
+            if($resource instanceof \Laravel\Forge\Resources\Site) {
+                $tags = ! empty($resource->tags) ? " ({$resource->tags()})" : null;
+                $name = "$name [{$resource->projectName}]".$tags;
+            }
+
+            // Usually the key is a hashed string
+            if(is_numeric($resource->id)) {
+                $key = $resource->id;
+            }
+
+            return [$key => [
+                'name' => $name,
+                'key' => $resource->id,
+            ]];
+        });
+
+        $choice = $this->choiceStep(
+            $question,
+            $sites->mapWithKeys(fn($site, $key) => [$key => $site['name']])->all(),
+            forceInt: false
+        );
+
+        $site = $sites->get($choice);
+        return $site ? $site['key'] : null;
     }
 
     /**
@@ -76,12 +103,39 @@ trait InteractsWithIO
             return optional($answers->where('name', $name)->first())->id ?: $name;
         }
 
-        return $this->choiceStep($question, $answers->mapWithKeys(function ($resource) {
-            /** @var \Laravel\Forge\Resources\Server $resource */
-            $tags = ! empty($resource->tags) ? " ({$resource->tags()})" : null;
+        $servers = $answers->mapWithKeys(function ($resource, $key) {
 
-            return [$resource->id => $resource->name.$tags];
-        })->all());
+            $name = $resource->name;
+            if($resource instanceof \Laravel\Forge\Resources\Server) {
+                $tags = ! empty($resource->tags) ? " ({$resource->tags()})" : null;
+
+                if (isset($resource->projectName)) {
+                    $name = "$name [{$resource->projectName}]";
+                }
+
+                $name = $name." ".$tags;
+            }
+
+            // Usually the key is a hashed string
+            if(is_numeric($resource->id)) {
+                $key = $resource->id;
+            }
+
+            return [$key => [
+                'name' => $name,
+                'key' => $resource->id,
+            ]];
+        });
+
+        $choice = $this->choiceStep(
+            $question,
+            $servers->mapWithKeys(fn($server, $key) => [$key => $server['name']])->all(),
+            forceInt: false
+        );
+
+        $server = $servers->get($choice);
+
+        return $server ? $server['key'] : null;
     }
 
     /**
@@ -102,9 +156,29 @@ trait InteractsWithIO
             return optional($answers->where('command', $command)->first())->id ?: $command;
         }
 
-        return $this->choiceStep($question, $answers->mapWithKeys(function ($resource) {
-            return [$resource->id => $resource->command];
-        })->all());
+        $daemons = $answers->mapWithKeys(function ($resource, $key) {
+
+            // Usually the key is a hashed string
+            if(is_numeric($resource->id)) {
+                $key = $resource->id;
+            }
+
+            /** @var \Laravel\Forge\Resources\Daemon $resource */
+            return [$key => [
+                'name' => $resource->command,
+                'key' => $resource->id,
+            ]];
+        });
+
+        $choice = $this->choiceStep(
+            $question,
+            $daemons->mapWithKeys(fn($server, $key) => [$key => $server['name']])->all(),
+            forceInt: false
+        );
+
+        $daemon = $daemons->get($choice);
+
+        return $daemon ? $daemon['key'] : null;
     }
 
     /**
@@ -216,7 +290,7 @@ trait InteractsWithIO
      * @param  string|null  $default
      * @return int
      */
-    public function choiceStep($question, $choices, $default = null)
+    public function choiceStep($question, $choices, $default = null, bool $forceInt = true)
     {
         $question = $this->formatStepText($question);
 
@@ -231,6 +305,44 @@ trait InteractsWithIO
             }
         };
 
-        return (int) $this->output->askQuestion($question);
+        $result = $this->output->askQuestion($question);
+
+        return $forceInt ? (int) $result : $result;
+    }
+
+    /**
+     * Prompt the user for an "server" input.
+     *
+     * @param  string  $question
+     * @return string|int
+     */
+    public function askForTeam($question)
+    {
+        $name = $this->argument('team');
+
+        $answers = collect($this->forge->teams());
+
+        abort_if($answers->isEmpty(), 1, 'This account does not have any teams.');
+
+        if (! is_null($name)) {
+            return optional($answers->where('name', $name)->first())->id ?: $name;
+        }
+
+        $teams = $answers->mapWithKeys(function ($resource, $key) {
+            return [$key => [
+                'name' => $resource->name,
+                'key' => $resource->id,
+            ]];
+        });
+
+        $choice = $this->choiceStep(
+            $question,
+            $teams->mapWithKeys(fn($server, $key) => [$key => $server['name']])->all(),
+            forceInt: false
+        );
+
+        $team = $teams->get($choice);
+
+        return $team ? $team['key'] : null;
     }
 }

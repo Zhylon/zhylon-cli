@@ -21,7 +21,7 @@ it('warns the user about the latest unstable versions', function () {
     });
 
     $this->artisan('server:list')
-        ->expectsOutput('==> You Are Using An Outdated Version [v0.2.1] Of Forge CLI. Please Update To [v0.2.2].');
+        ->expectsOutput('==> You Are Using An Outdated Version [v0.2.1] Of Zhylon CLI. Please Update To [v0.2.2].');
 });
 
 it('warns the user about the latest stable versions', function () {
@@ -32,7 +32,7 @@ it('warns the user about the latest stable versions', function () {
     });
 
     $this->artisan('server:list')
-        ->expectsOutput('==> You Are Using An Outdated Version [v0.2.1] Of Forge CLI. Please Update To [v1.0.0].');
+        ->expectsOutput('==> You Are Using An Outdated Version [v0.2.1] Of Zhylon CLI. Please Update To [v1.0.0].');
 });
 
 it('do not warns the user if the version is already up-to-date', function () {
@@ -43,5 +43,5 @@ it('do not warns the user if the version is already up-to-date', function () {
     });
 
     $this->artisan('server:list')
-        ->doesntExpectOutput('==> You Are Using An Outdated Version [v1.0.1] Of Forge CLI. Please Update To [v1.0.1].');
+        ->doesntExpectOutput('==> You Are Using An Outdated Version [v1.0.1] Of Zhylon CLI. Please Update To [v1.0.1].');
 });

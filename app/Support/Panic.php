@@ -20,9 +20,9 @@ class Panic
 
         abort(1, sprintf(<<<'EOF'
             An unexpected error occured. Please report this issue here:
-            https://github.com/laravel/forge-cli/issues/new/choose
+            https://github.com/zhylon/zhylon-cli/issues/new/choose
 
-            - Forge CLI Version: %s
+            - Zhylon CLI Version: %s
             - PHP Version: %s
             - Operating System: %s
             - Error Message: %s.

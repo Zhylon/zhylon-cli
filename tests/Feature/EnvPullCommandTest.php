@@ -16,7 +16,7 @@ it('can pull environment variables generated file', function () {
         (object) ['id' => 2, 'name' => 'something.com'],
     );
 
-    $file = getcwd().'/.env.forge.2';
+    $file = getcwd().'/.env.zhylon.something.com';
 
     File::shouldReceive('exists')->once()->with($file)->andReturn(false);
     File::shouldReceive('delete')->once()->with($file)->andReturn(false);
@@ -29,7 +29,7 @@ it('can pull environment variables generated file', function () {
 
     $this->artisan('env:pull')
         ->expectsQuestion('<fg=yellow>‣</> <options=bold>Which Site Would You Like To Download The Environment File From</>', 2)
-        ->expectsOutput('==> Environment Variables Written To [.env.forge.2]');
+        ->expectsOutput('==> Environment Variables Written To [.env.zhylon.something.com]');
 });
 
 it('can pull environment variables specific env file', function () {

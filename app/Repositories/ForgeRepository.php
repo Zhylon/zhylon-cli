@@ -81,20 +81,23 @@ class ForgeRepository
      */
     protected function ensureApiToken()
     {
-        $token = $this->config->get('token', $_SERVER['FORGE_API_TOKEN'] ?? getenv('FORGE_API_TOKEN') ?: null);
+        $token = $this->config->get('token', $_SERVER['ZHYLON_API_TOKEN'] ?? getenv('ZHYLON_API_TOKEN') ?: null);
+        $teamId = $this->config->get('team', $_SERVER['ZHYLON_TEAM_ID'] ?? getenv('ZHYLON_TEAM_ID') ?: null);
 
         abort_if($token == null, 1, 'Please authenticate using the \'login\' command before proceeding.');
 
-        $guzzle = isset($_SERVER['FORGE_API_BASE'])
-            ? new GuzzleHttp\Client([ // http://forge.test/api/v1/
-                'base_uri' => $_SERVER['FORGE_API_BASE'], // 'https://forge.laravel.com/api/v1/',
-                'http_errors' => false,
-                'headers' => [
-                    'Authorization' => 'Bearer '.$token,
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-            ]) : null;
+        $guzzle = new GuzzleHttp\Client([
+            'base_uri' => $uri = ($_SERVER['ZHYLON_API_BASE'] ?? 'https://zhylon.net/api/v2/'),
+            'http_errors' => false,
+            'verify' => !str_contains($uri, '.test'), // don't verify SSL for local environments
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'X-Team-Id' => $teamId,
+                'User-Agent' => 'Zhylon CLI/v'.config('app.version'),
+            ],
+        ]);
 
         $this->client->setApiKey($token, $guzzle);
     }

@@ -110,7 +110,7 @@ abstract class Command extends BaseCommand
      *
      * @return void
      */
-    protected function ensureCurrentTeamIsSet()
+    protected function ensureCurrentTeamIsSet(bool $checkTeam = true)
     {
         if (! $this->config->get('server', false)) {
             $server = collect($this->forge->servers())->first();
@@ -118,6 +118,13 @@ abstract class Command extends BaseCommand
             abort_if($server == null, 1, 'Please create a server first.');
 
             $this->config->set('server', $server->id);
+        }
+
+        if ($checkTeam && ! $this->config->get('team', false)) {
+            $teams = collect($this->forge->teams())->filter(fn($team) => $team->personal_team);
+            if ($teams->isNotEmpty()) {
+                $this->config->set('team', $teams->first()->id);
+            }
         }
     }
 

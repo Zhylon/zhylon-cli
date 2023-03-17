@@ -11,7 +11,7 @@ class TinkerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'tinker {site? : The site name}';
+    protected $signature = 'tinker {site? : The site id or name}';
 
     /**
      * The description of the command.
@@ -35,11 +35,11 @@ class TinkerCommand extends Command
 
         // @phpstan-ignore-next-line
         $phpVersion = $site->phpVersion;
+        $sitePath = $site->sitePath ?? '/home/'.$site->username.'/'.$site->name;
 
         return $this->remote->passthru(sprintf(
-            'cd /home/%s/%s && %s artisan tinker',
-            $site->username,
-            $site->name,
+            'cd %s && %s artisan tinker',
+            $sitePath,
             PhpVersion::of($phpVersion)->binary()
         ));
     }

@@ -21,7 +21,7 @@ trait InteractsWithVersions
         $current = 'v'.config('app.version');
 
         if (version_compare($remote = $this->getLatestVersion(), $current) > 0) {
-            $this->warnStep(['You are using an outdated version %s of Forge CLI. Please update to %s.', $current, $remote]);
+            $this->warnStep(['You are using an outdated version %s of Zhylon CLI. Please update to %s.', $current, $remote]);
         }
     }
 
@@ -34,10 +34,10 @@ trait InteractsWithVersions
     {
         $resolver = static::$latestVersionResolver ?? function () {
             $package = json_decode(file_get_contents(
-                'https://packagist.org/p2/laravel/forge-cli.json'
+                'https://packagist.org/p2/zhylon/zhylon-cli.json'
             ), true);
 
-            return collect($package['packages']['laravel/forge-cli'])
+            return collect($package['packages']['zhylon/zhylon-cli'])
                 ->first()['version'];
         };
 

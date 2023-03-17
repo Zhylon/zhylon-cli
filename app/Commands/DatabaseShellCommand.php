@@ -11,7 +11,7 @@ class DatabaseShellCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'database:shell {database? : The name of the database} {--user=forge : The username of the database user to connect as}';
+    protected $signature = 'database:shell {database? : The name of the database} {--user=zhylon : The username of the database user to connect as}';
 
     /**
      * The description of the command.

@@ -29,11 +29,11 @@ it('can run commands on sites with an menu', function () {
     ]);
 
     $this->client->shouldReceive('site')->with(1, 1)->once()->andReturn(
-        (object) ['id' => 1, 'username' => 'forge'],
+        (object) ['id' => 1, 'username' => 'zhylon'],
     );
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/forge/.forge/provision-5.output'
+        'cat /home/zhylon/.zhylon/provision-5.output'
     )->twice()->andReturn([0, [
         'Compiled services and packages files removed!',
     ]]);
@@ -77,11 +77,11 @@ it('can run commands with an option', function () {
     ]);
 
     $this->client->shouldReceive('site')->with(1, 2)->once()->andReturn(
-        (object) ['id' => 1, 'username' => 'forge'],
+        (object) ['id' => 1, 'username' => 'zhylon'],
     );
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/forge/.forge/provision-6.output'
+        'cat /home/zhylon/.zhylon/provision-6.output'
     )->twice()->andReturn([0, [
         'Compiled services and packages files removed!',
     ]]);
@@ -127,7 +127,7 @@ it('can run commands when sites use website isolation', function () {
     );
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/user-in-isolation/.forge/provision-6.output'
+        'cat /home/user-in-isolation/.zhylon/provision-6.output'
     )->twice()->andReturn([0, [
         'Compiled services and packages files removed!',
     ]]);
@@ -173,7 +173,7 @@ it('handles command failures', function () {
     );
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/user-in-isolation/.forge/provision-6.output'
+        'cat /home/user-in-isolation/.zhylon/provision-6.output'
     )->twice()->andReturn([0, [
         ' Illuminate\Database\QueryException',
     ]]);

@@ -3,6 +3,7 @@
 namespace App\Clients;
 
 use App\Support\Panic;
+use Laravel\Forge\Resources\Site;
 use Laravel\Forge\Forge as BaseForge;
 use Psr\Http\Message\ResponseInterface;
 
@@ -25,6 +26,16 @@ class Forge extends BaseForge
         return collect(parent::servers())->filter(function ($server) {
             return $server->revoked == false;
         })->values()->all();
+    }
+
+    public function teams()
+    {
+        return collect($this->get('teams')['teams'])->map(fn($team) => (object) $team);
+    }
+
+    public function team($teamId)
+    {
+        return (object) $this->get("teams/$teamId")['team'];
     }
 
     /**
@@ -87,6 +98,15 @@ class Forge extends BaseForge
     public function siteDeploymentOutput($serverId, $siteId, $deploymentId)
     {
         return $this->get("servers/$serverId/sites/$siteId/deployment-history/$deploymentId/output")['output'];
+    }
+
+    public function sites($serverId)
+    {
+        return $this->transformCollection(
+            $this->get("servers/$serverId/sites")['sites'],
+            Site::class,
+            ['server_id' => $serverId]
+        );
     }
 
     /**

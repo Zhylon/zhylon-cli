@@ -34,7 +34,7 @@ class PhpInstallVersionCommand extends Command
         $server = $this->currentServer();
 
         $version = $this->argument('version');
-        $versions = ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3'];
+        $versions = ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4'];
 
         if (! is_null($version) && ! in_array($version, $versions, true)) {
             abort(1, 'PHP version needs to be one of these values: '.implode(', ', $versions).'.');

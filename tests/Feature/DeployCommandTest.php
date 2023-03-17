@@ -11,7 +11,7 @@ it('can deploy sites with an menu', function () {
     );
 
     $this->client->shouldReceive('site')->twice()->with(1, 1)->andReturn(
-        (object) ['id' => 1, 'name' => 'pestphp.com', 'deploymentStatus' => null, 'username' => 'forge'],
+        (object) ['id' => 1, 'name' => 'pestphp.com', 'deploymentStatus' => null, 'username' => 'zhylon'],
     );
 
     $this->client->shouldReceive('deploySite')->with(1, 1, false)->once()->andReturn(null);
@@ -27,13 +27,13 @@ it('can deploy sites with an menu', function () {
     ]);
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/forge/.forge/provision-3.output'
+        'cat /home/zhylon/.zhylon/provision-3.output'
     )->once()->andReturn([0, [
         'Installing composer dependencies...',
     ]]);
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/forge/.forge/provision-3.output'
+        'cat /home/zhylon/.zhylon/provision-3.output'
     )->once()->andReturn([0, [
         'Installing composer dependencies...',
         'Restarting FPM...',
@@ -59,7 +59,7 @@ it('can deploy sites with an option', function () {
     );
 
     $this->client->shouldReceive('site')->twice()->with(1, 2)->andReturn(
-        (object) ['id' => 2, 'name' => 'something.com', 'deploymentStatus' => null, 'username' => 'forge'],
+        (object) ['id' => 2, 'name' => 'something.com', 'deploymentStatus' => null, 'username' => 'zhylon'],
     );
 
     $this->client->shouldReceive('sites')->once()->andReturn([
@@ -80,13 +80,13 @@ it('can deploy sites with an option', function () {
     ]);
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/forge/.forge/provision-3.output'
+        'cat /home/zhylon/.zhylon/provision-3.output'
     )->once()->andReturn([0, [
         'Installing composer dependencies...',
     ]]);
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/forge/.forge/provision-3.output'
+        'cat /home/zhylon/.zhylon/provision-3.output'
     )->once()->andReturn([0, [
         'Installing composer dependencies...',
         'Restarting FPM...',
@@ -132,13 +132,13 @@ it('can deploy sites when sites use website isolation', function () {
     ]);
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/user-in-isolation/.forge/provision-3.output'
+        'cat /home/user-in-isolation/.zhylon/provision-3.output'
     )->once()->andReturn([0, [
         'Installing composer dependencies...',
     ]]);
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/user-in-isolation/.forge/provision-3.output'
+        'cat /home/user-in-isolation/.zhylon/provision-3.output'
     )->once()->andReturn([0, [
         'Installing composer dependencies...',
         'Restarting FPM...',
@@ -168,7 +168,7 @@ it('can not deploy sites that are already deploying', function () {
     ]);
 
     $this->client->shouldReceive('site')->once()->with(1, 2)->andReturn(
-        (object) ['id' => 2, 'name' => 'something.com', 'deploymentStatus' => 'queued', 'username' => 'forge'],
+        (object) ['id' => 2, 'name' => 'something.com', 'deploymentStatus' => 'queued', 'username' => 'zhylon'],
     );
 
     $this->artisan('deploy', ['site' => 'something.com']);
@@ -185,7 +185,7 @@ it('handles deployment failures', function () {
     ]);
 
     $this->client->shouldReceive('site')->twice()->with(1, 2)->andReturn(
-        (object) ['id' => 2, 'name' => 'something.com', 'deploymentStatus' => null, 'username' => 'forge'],
+        (object) ['id' => 2, 'name' => 'something.com', 'deploymentStatus' => null, 'username' => 'zhylon'],
     );
 
     $this->client->shouldReceive('deploySite')->with(1, 2, false)->once()->andReturn(null);
@@ -201,11 +201,11 @@ it('handles deployment failures', function () {
     ]);
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/forge/.forge/provision-3.output'
+        'cat /home/zhylon/.zhylon/provision-3.output'
     )->once()->andReturn([0, ['Installing composer dependencies...']]);
 
     $this->remote->shouldReceive('exec')->with(
-        'cat /home/forge/.forge/provision-3.output'
+        'cat /home/zhylon/.zhylon/provision-3.output'
     )->once()->andReturn([0, [
         'Installing composer dependencies...',
         'Restarting FPM failed...',

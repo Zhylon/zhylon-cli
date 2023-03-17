@@ -85,7 +85,7 @@ it('can reuse ssh keys', function () {
 
     $this->artisan('ssh:configure', ['server' => 2])
         ->expectsQuestion('<fg=yellow>‣</> <options=bold>Which Key Would You Like To Use</>', 1)
-        ->expectsQuestion('<fg=yellow>‣</> <options=bold>What Should The SSH Key Be Named In Forge</>', 'driesvints')
+        ->expectsQuestion('<fg=yellow>‣</> <options=bold>What Should The SSH Key Be Named In Zhylon</>', 'driesvints')
         ->expectsOutput('==> Adding Key [id_rsa.pub] With The Name [driesvints] To Server [production]')
         ->expectsOutput('==> SSH Key Based Secure Authentication Configured Successfully');
 });

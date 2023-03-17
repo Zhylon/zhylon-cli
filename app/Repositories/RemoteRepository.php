@@ -221,7 +221,7 @@ class RemoteRepository
         }
 
         return trim(sprintf(
-            'ssh %s -t forge@%s %s',
+            'ssh %s -t zhylon@%s %s',
             $options,
             $this->server->ipAddress,
             $command,

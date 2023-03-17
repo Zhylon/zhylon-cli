@@ -16,7 +16,7 @@ class LogoutCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Logout from Laravel Forge';
+    protected $description = 'Logout from Zhylon Deployment';
 
     /**
      * Execute the console command.

@@ -11,12 +11,12 @@ it('can retrieve logs from daemons', function () {
     ]);
 
     $this->client->shouldReceive('daemon')->andReturn(
-        (object) ['id' => 1, 'user' => 'forge'],
+        (object) ['id' => 1, 'user' => 'zhylon'],
     );
 
     $this->remote->shouldReceive('tail')
         ->once()
-        ->with('/home/forge/.forge/daemon-1.log', Mockery::type(Closure::class), [])
+        ->with('/home/zhylon/.zhylon/daemon-1.log', Mockery::type(Closure::class), [])
         ->andReturn([0, [
             '[00:01] FOO',
             '[00:02] BAR',
@@ -37,12 +37,12 @@ it('can tail logs from daemons', function () {
     ]);
 
     $this->client->shouldReceive('daemon')->andReturn(
-        (object) ['id' => 1, 'user' => 'forge'],
+        (object) ['id' => 1, 'user' => 'zhylon'],
     );
 
     $this->remote->shouldReceive('tail')
         ->once()
-        ->with('/home/forge/.forge/daemon-1.log', Mockery::type(Closure::class), ['-f'])
+        ->with('/home/zhylon/.zhylon/daemon-1.log', Mockery::type(Closure::class), ['-f'])
         ->andReturn([0, [
             '[00:01] FOO',
             '[00:02] BAR',
@@ -63,12 +63,12 @@ it('exits with 0 exit code on control + c', function () {
     ]);
 
     $this->client->shouldReceive('daemon')->andReturn(
-        (object) ['id' => 1, 'user' => 'forge'],
+        (object) ['id' => 1, 'user' => 'zhylon'],
     );
 
     $this->remote->shouldReceive('tail')
         ->once()
-        ->with('/home/forge/.forge/daemon-1.log', Mockery::type(Closure::class), ['-f'])
+        ->with('/home/zhylon/.zhylon/daemon-1.log', Mockery::type(Closure::class), ['-f'])
         ->andReturn([255, [
             '[00:01] FOO',
             '[00:02] BAR',
@@ -90,12 +90,12 @@ it('displays errors', function () {
     ]);
 
     $this->client->shouldReceive('daemon')->andReturn(
-        (object) ['id' => 1, 'user' => 'forge'],
+        (object) ['id' => 1, 'user' => 'zhylon'],
     );
 
     $this->remote->shouldReceive('tail')
         ->once()
-        ->with('/home/forge/.forge/daemon-1.log', Mockery::type(Closure::class), ['-f'])
+        ->with('/home/zhylon/.zhylon/daemon-1.log', Mockery::type(Closure::class), ['-f'])
         ->andReturn(1);
 
     $this->artisan('daemon:logs', ['--follow' => true])

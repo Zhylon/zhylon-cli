@@ -9,14 +9,14 @@ class LoginCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'login {--token= : Forge API token}';
+    protected $signature = 'login {--token= : Zhylon API token}';
 
     /**
      * The description of the command.
      *
      * @var string
      */
-    protected $description = 'Authenticate with Laravel Forge';
+    protected $description = 'Authenticate with Zhylon Deployment';
 
     /**
      * Execute the console command.
@@ -28,14 +28,14 @@ class LoginCommand extends Command
         $token = $this->option('token');
 
         if ($token === null) {
-            $token = $this->askStep('Please enter your Forge API token');
+            $token = $this->askStep('Please enter your Zhylon API token');
         }
 
         $this->config->set('token', $token);
 
         $email = $this->getUserEmail();
 
-        $this->ensureCurrentTeamIsSet();
+        $this->ensureCurrentTeamIsSet(false);
 
         $this->successfulStep("Authenticated successfully as <comment>[$email]</comment>");
     }

@@ -12,6 +12,6 @@ trait InteractsWithEnvironmentFiles
      */
     protected function getEnvironmentFile($site)
     {
-        return $this->argument('file') ?: (getcwd().'/.env.forge.'.$site->id);
+        return $this->argument('file') ?: (getcwd().'/.env.zhylon.'.$site->name);
     }
 }

@@ -34,7 +34,7 @@ trait InteractsWithLogs
      * @param  bool  $follow
      * @return void
      */
-    protected function showSiteLogs($site, $follow)
+    protected function showSiteLogs($site, $follow, $name = null)
     {
         $this->step('Retrieving the latest site logs');
 
@@ -47,7 +47,13 @@ trait InteractsWithLogs
                 break;
         }
 
-        $sitePath = '/home/'.$site->username.'/'.$site->name;
+        if (! empty($name)) {
+            $files = collect($files)
+                ->map(fn($file) => str_replace('*.log', $name, $file))
+                ->toArray();
+        }
+
+        $sitePath = $site->sitePath ?? '/home/'.$site->username.'/'.$site->name;
 
         $sitePath = basename($sitePath) == 'current'
             ? basename($sitePath)
@@ -72,7 +78,9 @@ trait InteractsWithLogs
 
         $this->step('Retrieving the latest daemon logs');
 
-        $this->showRemoteLogs('/home/'.$username.'/.forge/daemon-'.$daemonId.'.log', $follow);
+        $daemonId = Str::of($daemonId)->after('h:');
+
+        $this->showRemoteLogs('/home/'.$username.'/.zhylon/daemon-'.$daemonId.'.log', $follow);
     }
 
     /**

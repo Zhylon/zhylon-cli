@@ -12,7 +12,7 @@ class SshConfigureCommand extends Command
     protected $signature = 'ssh:configure
         {server? : The server name}
         {--key= : The path to the public key}
-        {--name= : The key name on Forge}';
+        {--name= : The key name on Zhylon}';
 
     /**
      * The description of the command.
@@ -106,7 +106,7 @@ class SshConfigureCommand extends Command
         $question = 'What should the SSH key be named';
 
         if ($key) {
-            $question .= ' in Forge';
+            $question .= ' in Zhylon';
         }
 
         return $this->option('name') ?: $this->askStep($question, get_current_user());

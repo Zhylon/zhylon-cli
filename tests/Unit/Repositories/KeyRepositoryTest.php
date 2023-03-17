@@ -18,7 +18,7 @@ it('creates keys', function () {
         function ($key) {
             $key->toContain(
                 'ssh-ed25519',
-                'forge-cli-generated-key'
+                'zhylon-cli-generated-key'
             );
         }
     );

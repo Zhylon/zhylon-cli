@@ -33,7 +33,7 @@ trait InteractsWithEvents
             }
 
             [$exitCode, $output] = $this->remote->exec(sprintf(
-                'cat /home/%s/.forge/provision-%s.output',
+                'cat /home/%s/.zhylon/provision-%s.output',
                 $username,
                 $eventId
             ));

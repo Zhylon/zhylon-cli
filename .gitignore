@@ -1,5 +1,6 @@
 /phpunit.xml
 /tests/.laravel-forge
+/tests/.laravel-zhylon
 /vendor
 composer.lock
 .phpunit.result.cache

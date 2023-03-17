@@ -27,7 +27,7 @@ uses(TestCase::class, CreatesApplication::class)
     ->beforeEach(function () {
         Once\Cache::getInstance()->flush();
 
-        (new Filesystem)->deleteDirectory(base_path('tests/.laravel-forge'));
+        (new Filesystem)->deleteDirectory(base_path('tests/.zhylon-deployment'));
 
         $this->client = tap(Mockery::mock(Forge::class), function ($mock) {
             $mock->shouldReceive('setApiKey')->zeroOrMoreTimes();
@@ -35,6 +35,7 @@ uses(TestCase::class, CreatesApplication::class)
 
         $this->config = resolve(ConfigRepository::class)->set('token', '123123213');
         $this->config = resolve(ConfigRepository::class)->set('server', 1);
+        $this->config = resolve(ConfigRepository::class)->set('team', 1);
 
         $this->keys = resolve(KeyRepository::class);
 
@@ -48,7 +49,7 @@ uses(TestCase::class, CreatesApplication::class)
             return config('app.version');
         });
     })->afterEach(function () {
-        (new Filesystem)->deleteDirectory(base_path('tests/.laravel-forge'));
+        (new Filesystem)->deleteDirectory(base_path('tests/.zhylon-deployment'));
     })->in('Feature', 'Unit');
 
 /*

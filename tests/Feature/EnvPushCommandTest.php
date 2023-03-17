@@ -16,7 +16,7 @@ it('can push environment variables from the generated file', function () {
         (object) ['id' => 2, 'name' => 'something.com'],
     );
 
-    $file = getcwd().'/.env.forge.2';
+    $file = getcwd().'/.env.zhylon.something.com';
 
     File::shouldReceive('exists')->once()->with($file)->andReturn(true);
 
@@ -28,9 +28,9 @@ it('can push environment variables from the generated file', function () {
 
     $this->artisan('env:push')
         ->expectsQuestion('<fg=yellow>‣</> <options=bold>Which Site Would You Like To Upload The Environment File To</>', 2)
-        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Would You Like Update The Site Environment File With The Contents Of The File <comment>[.env.forge.2]</comment></>', 2)
-        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Would You Like To Delete The Environment File <comment>[.env.forge.2]</comment> From Your Machine</>', false)
-        ->expectsOutput('==> Uploading [.env.forge.2] Environment File')
+        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Would You Like Update The Site Environment File With The Contents Of The File <comment>[.env.zhylon.something.com]</comment></>', 2)
+        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Would You Like To Delete The Environment File <comment>[.env.zhylon.something.com]</comment> From Your Machine</>', false)
+        ->expectsOutput('==> Uploading [.env.zhylon.something.com] Environment File')
         ->expectsOutput('==> Environment Variables Uploaded Successfully To [something.com]');
 });
 

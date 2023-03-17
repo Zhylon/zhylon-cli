@@ -6,16 +6,16 @@ it('can open shell connections to mysql databases', function () {
     );
 
     $this->client->shouldReceive('databases')->andReturn([
-        (object) ['id' => 1, 'name' => 'forge-default-database'],
+        (object) ['id' => 1, 'name' => 'zhylon-default-database'],
     ]);
 
     $this->remote->shouldReceive('passthru')
-        ->with('mysql -u forge -pmy-secret-password forge-default-database')
+        ->with('mysql -u zhylon -pmy-secret-password zhylon-default-database')
         ->andReturn(0);
 
     $this->artisan('database:shell')
-        ->expectsOutput('==> Establishing Shell Connection To [production@forge-default-database] Database')
-        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Enter The Database User <comment>[forge]</comment> Password</>', 'my-secret-password');
+        ->expectsOutput('==> Establishing Shell Connection To [production@zhylon-default-database] Database')
+        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Enter The Database User <comment>[zhylon]</comment> Password</>', 'my-secret-password');
 });
 
 it('can open shell connections to postgres databases', function () {
@@ -24,16 +24,16 @@ it('can open shell connections to postgres databases', function () {
     );
 
     $this->client->shouldReceive('databases')->andReturn([
-        (object) ['id' => 1, 'name' => 'forge-default-database'],
+        (object) ['id' => 1, 'name' => 'zhylon-default-database'],
     ]);
 
     $this->remote->shouldReceive('passthru')
-        ->with('PGPASSWORD=my-secret-password psql -U forge forge-default-database')
+        ->with('PGPASSWORD=my-secret-password psql -U zhylon zhylon-default-database')
         ->andReturn(0);
 
     $this->artisan('database:shell')
-        ->expectsOutput('==> Establishing Shell Connection To [production@forge-default-database] Database')
-        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Enter The Database User <comment>[forge]</comment> Password</>', 'my-secret-password');
+        ->expectsOutput('==> Establishing Shell Connection To [production@zhylon-default-database] Database')
+        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Enter The Database User <comment>[zhylon]</comment> Password</>', 'my-secret-password');
 });
 
 test('exit code gets returned', function () {
@@ -42,16 +42,16 @@ test('exit code gets returned', function () {
     );
 
     $this->client->shouldReceive('databases')->andReturn([
-        (object) ['id' => 1, 'name' => 'forge-default-database'],
+        (object) ['id' => 1, 'name' => 'zhylon-default-database'],
     ]);
 
     $this->remote->shouldReceive('passthru')
-        ->with('mysql -u forge -pmy-wrong-secret-password forge-default-database')
+        ->with('mysql -u zhylon -pmy-wrong-secret-password zhylon-default-database')
         ->andReturn(1);
 
     $this->artisan('database:shell')
-        ->expectsOutput('==> Establishing Shell Connection To [production@forge-default-database] Database')
-        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Enter The Database User <comment>[forge]</comment> Password</>', 'my-wrong-secret-password')
+        ->expectsOutput('==> Establishing Shell Connection To [production@zhylon-default-database] Database')
+        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Enter The Database User <comment>[zhylon]</comment> Password</>', 'my-wrong-secret-password')
         ->assertExitCode(1);
 });
 
@@ -85,12 +85,12 @@ it('can not open shell connections if the database is empty', function () {
     );
 
     $this->client->shouldReceive('databases')->andReturn([
-        (object) ['id' => 1, 'name' => 'forge-default-database'],
+        (object) ['id' => 1, 'name' => 'zhylon-default-database'],
     ]);
 
     $this->artisan('database:shell')
-        ->expectsOutput('==> Establishing Shell Connection To [production@forge-default-database] Database')
-        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Enter The Database User <comment>[forge]</comment> Password</>', null);
+        ->expectsOutput('==> Establishing Shell Connection To [production@zhylon-default-database] Database')
+        ->expectsQuestion('<fg=yellow>‣</> <options=bold>Enter The Database User <comment>[zhylon]</comment> Password</>', null);
 })->throws('Password can not be empty.');
 
 it('can not open shell connections when there is not database service', function () {

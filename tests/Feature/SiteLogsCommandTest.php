@@ -11,12 +11,12 @@ it('can retrieve logs from sites', function () {
     ]);
 
     $this->client->shouldReceive('site')->once()->with(1, 2)->andReturn(
-        (object) ['id' => 1, 'name' => 'something.com', 'username' => 'forge', 'app' => 'php'],
+        (object) ['id' => 1, 'name' => 'something.com', 'username' => 'zhylon', 'app' => 'php'],
     );
 
     $files = [
-        '/home/forge/something.com/shared/storage/logs/*.log',
-        '/home/forge/something.com/storage/logs/*.log',
+        '/home/zhylon/something.com/shared/storage/logs/*.log',
+        '/home/zhylon/something.com/storage/logs/*.log',
     ];
 
     $this->remote->shouldReceive('tail')
@@ -42,12 +42,12 @@ it('can tail logs from sites', function () {
     ]);
 
     $this->client->shouldReceive('site')->once()->with(1, 1)->andReturn(
-        (object) ['id' => 1, 'name' => 'pestphp.com', 'username' => 'forge', 'app' => 'wordpress'],
+        (object) ['id' => 1, 'name' => 'pestphp.com', 'username' => 'zhylon', 'app' => 'wordpress'],
     );
 
     $files = [
-        '/home/forge/pestphp.com/public/wp-content/*.log',
-        '/home/forge/pestphp.com/wp-content/*.log',
+        '/home/zhylon/pestphp.com/public/wp-content/*.log',
+        '/home/zhylon/pestphp.com/wp-content/*.log',
     ];
 
     $this->remote->shouldReceive('tail')
@@ -73,12 +73,12 @@ it('exits with 0 exit code on control + c', function () {
     ]);
 
     $this->client->shouldReceive('site')->once()->with(1, 1)->andReturn(
-        (object) ['id' => 1, 'name' => 'pestphp.com', 'username' => 'forge', 'app' => 'wordpress'],
+        (object) ['id' => 1, 'name' => 'pestphp.com', 'username' => 'zhylon', 'app' => 'wordpress'],
     );
 
     $files = [
-        '/home/forge/pestphp.com/public/wp-content/*.log',
-        '/home/forge/pestphp.com/wp-content/*.log',
+        '/home/zhylon/pestphp.com/public/wp-content/*.log',
+        '/home/zhylon/pestphp.com/wp-content/*.log',
     ];
 
     $this->remote->shouldReceive('tail')
