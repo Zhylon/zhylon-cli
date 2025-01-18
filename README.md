@@ -16,6 +16,7 @@ In addition, Zhylon can assist you in managing scheduled jobs, queue workers, SS
 ## Official Documentation
 
 Documentation for Zhylon CLI can be found under the [CLI Docs](CLI_DOCS.md).
+Or you can visit the [Zhylon Documentation](https://zhylon.net/) for more information.
 
 ## License
 
