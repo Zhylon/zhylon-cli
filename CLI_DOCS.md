@@ -8,7 +8,7 @@ Zhylon provides a command-line tool that you may use to manage your Zhylon serve
 
 ## Installation
 
-> Requires **[PHP 8.0+](https://php.net/releases/)**
+> Requires **[PHP 8.2+](https://php.net/releases/)**
 
 You may install the **[Zhylon CLI](https://github.com/Zhylon/zhylon-cli)** as a global **[Composer](https://getcomposer.org/)** dependency:
 
